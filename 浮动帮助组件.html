@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校兼帮 - 浮动帮助组件</title>
+    <style>
+        .floating-help {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .help-btn {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .help-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .help-panel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 300px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 20px;
+            display: none;
+        }
+        
+        .help-panel.visible {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .panel-header h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .guide-item {
+            margin: 10px 0;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4facfe;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .guide-item:hover {
+            background: #e3f2fd;
+            transform: translateX(-2px);
+        }
+        
+        .guide-item h4 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .guide-item p {
+            margin: 0;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .quick-tips {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .quick-tips h4 {
+            margin: 0 0 8px 0;
+            color: #856404;
+            font-size: 14px;
+        }
+        
+        .quick-tips ul {
+            margin: 0;
+            padding-left: 15px;
+            color: #856404;
+            font-size: 12px;
+        }
+        
+        .quick-tips li {
+            margin: 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-help">
+        <button class="help-btn" onclick="toggleHelp()">?</button>
+        
+        <div class="help-panel" id="helpPanel">
+            <div class="panel-header">
+                <h3>操作指南</h3>
+                <button class="close-btn" onclick="toggleHelp()">×</button>
+            </div>
+            
+            <div class="guide-item" onclick="showGuide('login')">
+                <h4>🔐 登录操作</h4>
+                <p>使用测试账号：小明/小红，密码任意</p>
+            </div>
+            
+            <div class="guide-item" onclick="showGuide('role')">
+                <h4>👥 身份切换</h4>
+                <p>点击顶部身份按钮实时切换学生/招聘者视角</p>
+            </div>
+            
+            <div class="guide-item" onclick="showGuide('job')">
+                <h4>📋 岗位管理</h4>
+                <p>浏览、申请、发布和管理招聘岗位</p>
+            </div>
+            
+            <div class="guide-item" onclick="showGuide('chat')">
+                <h4>💬 实时沟通</h4>
+                <p>与对方角色进行在线消息交流</p>
+            </div>
+            
+            <div class="quick-tips">
+                <h4>💡 快速提示</h4>
+                <ul>
+                    <li>双击页面元素查看详细信息</li>
+                    <li>使用键盘快捷键快速导航</li>
+                    <li>右键点击获取上下文菜单</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleHelp() {
+            const panel = document.getElementById('helpPanel');
+            panel.classList.toggle('visible');
+        }
+        
+        function showGuide(type) {
+            const messages = {
+                login: '📝 登录说明：\n• 学生端：用户名「小明」，密码任意\n• 招聘端：用户名「小红」，密码任意\n• 支持密码登录和短信验证码登录',
+                role: '🔄 身份切换：\n• 点击顶部「身份」按钮\n• 选择学生或招聘者身份\n• 系统会自动跳转到对应界面',
+                job: '🏢 岗位功能：\n• 学生：浏览、筛选、申请岗位\n• 招聘者：发布、编辑、管理岗位\n• 支持多种筛选条件和排序',
+                chat: '💌 消息功能：\n• 实时一对一沟通\n• 消息已读状态显示\n• 支持图片和文件传输'
+            };
+            
+            alert(messages[type] || '功能指南即将推出');
+        }
+        
+        // 点击外部关闭面板
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('helpPanel');
+            const btn = document.querySelector('.help-btn');
+            
+            if (panel.classList.contains('visible') && 
+                !panel.contains(e.target) && 
+                e.target !== btn) {
+                panel.classList.remove('visible');
+            }
+        });
+        
+        // ESC键关闭面板
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('helpPanel').classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
