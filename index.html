@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校兼帮 - 校园兼职平台原型</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+        
+        p {
+            color: #64748b;
+            margin: 0 0 30px 0;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .features {
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .feature-text {
+            color: #334155;
+            font-size: 14px;
+        }
+        
+        .loading {
+            margin-top: 20px;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">校</div>
+        <h1>校兼帮原型系统</h1>
+        <p>校园兼职平台交互原型 - 双身份切换设计</p>
+        
+        <a href="#" class="btn" onclick="showLoading(); return false;">
+            进入原型体验
+        </a>
+        
+        <div style="margin-top: 10px;">
+            <a href="校兼帮原型图.html" style="color: #64748b; font-size: 14px; text-decoration: underline;">
+                如果无法自动跳转，请点击此处
+            </a>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">👥</div>
+                <div class="feature-text">学生/招聘者双身份实时切换</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💼</div>
+                <div class="feature-text">岗位发布、申请、管理功能</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💬</div>
+                <div class="feature-text">实时消息沟通系统</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔐</div>
+                <div class="feature-text">智能登录与身份验证</div>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading" style="display: none;">
+            正在加载原型页面...
+        </div>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            
+            // 自动检测部署环境并跳转
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const isNetlify = window.location.hostname.includes('netlify.app');
+        const isVercel = window.location.hostname.includes('vercel.app');
+        
+        // 根据不同部署环境设置正确的跳转路径
+        let targetUrl = '校兼帮原型图.html';
+        
+        if (isGitHubPages) {
+            // GitHub Pages部署，路径需要包含仓库名
+            const pathParts = window.location.pathname.split('/').filter(part => part !== '');
+            const repoName = pathParts[0]; // 获取仓库名
+            if (repoName && repoName !== '') {
+                targetUrl = `/${repoName}/校兼帮原型图.html`;
+            } else {
+                // 直接访问github.io域名的情况
+                targetUrl = '/CampusPart-APP/校兼帮原型图.html';
+            }
+        } else if (isNetlify || isVercel) {
+            // Netlify和Vercel部署，直接使用相对路径
+            targetUrl = '校兼帮原型图.html';
+        }
+        
+        console.log('跳转目标URL:', targetUrl);
+        
+        // 立即跳转
+        window.location.href = targetUrl;
+        }
+        
+        // 页面加载完成后显示内容
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('校兼帮原型入口页面已加载');
+            console.log('访问链接：' + window.location.href + '校兼帮原型图.html');
+        });
+    </script>
+</body>
+</html>
